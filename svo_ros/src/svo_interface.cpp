@@ -195,7 +195,8 @@ void SvoInterface::monoCallback(const sensor_msgs::ImageConstPtr& msg)
   cv::Mat image;
   try
   {
-    image = cv_bridge::toCvCopy(msg)->image;
+    // convert image to BGR8 as expected by libsvo
+    image = cv_bridge::toCvShare(msg, sensor_msgs::image_encodings::BGR8)->image;
   }
   catch (cv_bridge::Exception& e)
   {
